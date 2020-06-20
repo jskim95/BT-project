@@ -36,13 +36,13 @@ const state = {
           var checkYear = "";
           var checkMonth = "";
           var checkDay = "";
-          
+
           for(var j=0; j<published.length; j++) {
-            if(published[j]>=0 && j<5) {
+            if(published[j]>=0 && j<4) {
               checkYear += published[j]
-            } else if(published[j]>=0 && j>5 && j<7) {
+            } else if(published[j]>=1 && j>=4 && j<=8) {
               checkMonth += published[j]
-            } else if(published[j]>=1 && j>7 && j<11) {
+            } else if(published[j]>=1 && j>=9 && j<12) {
               checkDay += published[j]
             }
           }
@@ -50,8 +50,9 @@ const state = {
 
           state.insideData.push([checkYear, checkMonth, checkDay, title, published, updated, content])
 
-          if(state.insideData.length ==5) {
+          if(state.insideData.length == insidePage.length) {
             state.insideData.sort()
+            console.log(state.insideData)
           }
 
         }) //axios 요청 끝
