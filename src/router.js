@@ -29,6 +29,7 @@ export default new Router({
           component:newsRoom,
         },
       ] // children 태그 끝
-    } // 부모 태그 끝
+    }, // 부모 태그 끝
+    
   ] // routes 끝
 })
