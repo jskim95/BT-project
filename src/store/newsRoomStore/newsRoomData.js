@@ -3,6 +3,8 @@ var cheerio = require('cheerio')
 
 const state = {
     newsRoomData: [],
+    listNewsRoomData: [],
+    recentNewsRoomData: [],
   }
 
   const getters = {
@@ -53,6 +55,16 @@ const state = {
           if(state.newsRoomData.length == newsRoomPage.length) {
             state.newsRoomData.sort()
             console.log(state.newsRoomData)
+
+            state.listNewsRoomData = JSON.parse(JSON.stringify(state.newsRoomData))
+            for(var k=0; k<state.newsRoomData.length; k++) {
+              state.listNewsRoomData[k][6] = state.newsRoomData[k][6].substr(0, 120)
+            }
+            console.log(state.listNewsRoomData)
+
+            state.recentNewsRoomData = state.listNewsRoomData.slice(state.listNewsRoomData.length-2,state.listNewsRoomData.length)
+            state.recentNewsRoomData.reverse()
+            console.log(state.recentNewsRoomData)
           }
 
         }) //axios 요청 끝

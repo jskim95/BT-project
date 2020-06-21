@@ -10,5 +10,7 @@ export default {
 </script>
 
 <style>
-
+body {
+font-family:'Noto Sans DemiLight'
+}
 </style>

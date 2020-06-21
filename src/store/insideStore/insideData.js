@@ -2,7 +2,15 @@ var axios = require('axios')
 var cheerio = require('cheerio')
 
 const state = {
+    // inside 모든 데이터
     insideData: [],
+
+    // 메인페이지에서 보여줄 최신글 2개
+    recentInsideData: [],
+
+    // 리스트에서 보여줄 최신글
+    listInsideData: [],
+
   }
 
   const getters = {
@@ -53,6 +61,16 @@ const state = {
           if(state.insideData.length == insidePage.length) {
             state.insideData.sort()
             console.log(state.insideData)
+
+            state.listInsideData = JSON.parse(JSON.stringify(state.insideData))
+            for(var k=0; k<state.insideData.length; k++) {
+              state.listInsideData[k][6] = state.insideData[k][6].substr(0, 120)
+            }
+            console.log(state.listInsideData)
+
+            state.recentInsideData = state.listInsideData.slice(state.listInsideData.length-2,state.listInsideData.length)
+            state.recentInsideData.reverse()
+            console.log(state.recentInsideData)
           }
 
         }) //axios 요청 끝

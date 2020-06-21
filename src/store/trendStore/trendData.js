@@ -3,6 +3,7 @@ var cheerio = require('cheerio')
 
 const state = {
     trendData: [],
+    listTrendData: [],
   }
 
   const getters = {
@@ -53,6 +54,13 @@ const state = {
           if(state.trendData.length ==trendPage.length) {
             state.trendData.sort()
             console.log(state.trendData)
+
+            state.listTrendData = JSON.parse(JSON.stringify(state.trendData))
+            
+            for(var k=0; k<state.trendData.length; k++) {
+              state.listTrendData[k][6] = state.trendData[k][6].substr(0, 120)
+            }
+            console.log(state.listTrendData)
           }
 
         }) //axios 요청 끝
