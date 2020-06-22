@@ -1,5 +1,6 @@
 <template>
   <div class="">
+    <!-- <router-link to="/"><img class="mainLogo"  v-on:click="moveHome" src="../assets/mainLogo.png"></router-link> -->
     inside
     {{insideData[0][3]}}
   </div>

@@ -32,7 +32,7 @@ const state = {
           var published = $('#content > div:nth-child(2) > article > div > p > time.published').text()
           var updated = $('#content > div:nth-child(2) > article > div > p > time.updated').text()
           var content = $('#content > div:nth-child(2) > article > div > div.entry.themeform > div.entry-inner > p').text()
-
+          var contentImg = $('#content > div:nth-child(2) > article > div > div.image-container > img').attr("src")
           // 날짜별로 게시글을 표현하기위해서 날짜 숫자만 출력
           var checkYear = "";
           var checkMonth = "";
@@ -49,14 +49,14 @@ const state = {
           }
 
 
-          state.trendData.push([checkYear, checkMonth, checkDay, title, published, updated, content])
+          state.trendData.push([checkYear, checkMonth, checkDay, title, published, updated, content, contentImg])
 
           if(state.trendData.length ==trendPage.length) {
             state.trendData.sort()
             console.log(state.trendData)
 
             state.listTrendData = JSON.parse(JSON.stringify(state.trendData))
-            
+
             for(var k=0; k<state.trendData.length; k++) {
               state.listTrendData[k][6] = state.trendData[k][6].substr(0, 120)
             }

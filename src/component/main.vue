@@ -11,24 +11,15 @@
       </div>
 
       <div class="TopBoxRight">
-
+        <a href="http://sinsiway.com/" target="_blank"><img src="../assets/home.png"></a>
+        <a href="https://www.instagram.com/sinsiway_official/" target="_blank"><img src="../assets/instagram.png"></a>
+        <a href="https://www.youtube.com/channel/UC25guIr2P55QP3dd2I2BXPA" target="_blank"><img src="../assets/youtube.png"></a>
       </div>
     </div>
 
     <div class="mainBox">
       <img src='../assets/mainBanner1.png'>
     </div>
-    <!-- {{allData[0][3]}}<br>
-    {{allData[1][3]}}<br>
-    {{allData[2][3]}}<br>
-    {{allData[3][3]}}<br>
-    {{allData[4][3]}}<br>
-    {{allData[5][3]}}<br>
-    {{allData[6][3]}}<br>
-    {{allData[7][3]}}<br>
-    {{allData[8][3]}}<br>
-    {{allData[9][3]}}<br> -->
-
 
     <div class="middle">
 
@@ -61,38 +52,46 @@
       <div class="center">
         <div class="mainPageContent" v-if="moveContent == 0">
 
-          <div class="movePageMargin">
-            <router-link class="movePage" to="inside" >INSIDE</router-link>
+          <!-- 게시글 앨범형 카드형 선택 -->
+          <div class="choiceContentView">
+            <div class="movePageMargin" v-on:click="moveCategoryPage">
+              <router-link class="movePage" to="inside" >INSIDE</router-link>
+            </div>
+            <div class="choiceView">
+              <img src='../assets/card.png'>
+              <img src='../assets/card.png'>
+            </div>
           </div>
+
           <div class="mainContent inside">
             <div class="contentBox" v-for="(recentInsideData, index) in recentInsideData">
-              <img :src="contentImg[index]" class="contentImg">
+              <router-link class="movePage" to="inside" ><img :src="recentInsideData[7]" class="contentImg" v-on:click="moveCategoryPage"></router-link>
               <p class="gray"><span class="blue">INSIDE</span> {{recentInsideData[4]}}</p>
               <p class="contentTitle">{{recentInsideData[3]}}</p>
               <p>{{recentInsideData[6]}}...</p>
             </div>
           </div>
 
-          <div class="movePageMargin">
+          <div class="movePageMargin" v-on:click="moveCategoryPage">
             <router-link class="movePage" to="newsRoom">NEWSROOM</router-link>
           </div>
           <div class="mainContent newsRoom">
             <div class="contentBox" v-for="(recentNewsRoomData, index) in recentNewsRoomData">
-              <img :src="contentImg[index]" class="contentImg">
+              <router-link class="movePage" to="newsRoom" ><img :src="recentNewsRoomData[7]" class="contentImg" v-on:click="moveCategoryPage"></router-link>
               <p class="gray"><span class="blue">NEWSROOM</span>  {{recentNewsRoomData[4]}}</p>
               <p class="contentTitle">{{recentNewsRoomData[3]}}</p>
               <p>{{recentNewsRoomData[6]}}...</p>
             </div>
           </div>
 
-          <div class="movePageMargin">
+          <div class="movePageMargin" v-on:click="moveCategoryPage">
             <router-link class="movePage" to="trend">TREND</router-link>
           </div>
 
           <div class="mainContent trend">
 
             <div class="contentBox" v-for="(listTrendData, index) in listTrendData">
-              <img :src="contentImg[index]" class="contentImg">
+              <router-link class="movePage" to="trend" ><img :src="listTrendData[7]" class="contentImg" v-on:click="moveCategoryPage"></router-link>
               <p class="gray"><span class="blue">TREND</span>  {{listTrendData[4]}}</p>
               <p class="contentTitle">{{listTrendData[3]}}</p>
               <p>{{listTrendData[6]}}...</p>
@@ -154,7 +153,6 @@ export default {
       test : "../assets/mainBanner1.png",
       moveCategory : 0,
       moveContent : 0,
-      contentImg : ["http://blog.sinsiway.com/newuploads/2020/06/1-1.png"]
     }
   },
 
@@ -168,15 +166,15 @@ export default {
     ...inside.mapState([
       'recentInsideData',
     ]),
-    allData() {
-      const {
-        inside: {recentInsideData},
-        newsRoom: {recentNewsRoomData},
-        trend: {listTrendData},
-      } = this.$store.state
-      // , ...recentNewsRoomData,
-      return {...recentInsideData, ...listTrendData}
-    },
+    // allData() {
+    //   const {
+    //     inside: {recentInsideData},
+    //     newsRoom: {recentNewsRoomData},
+    //     trend: {listTrendData},
+    //   } = this.$store.state
+    //   // , ...recentNewsRoomData,
+    //   return {...recentInsideData, ...listTrendData}
+    // },
   },
 
   methods: {
@@ -206,6 +204,10 @@ export default {
 
     moveCategoryPage() {
       this.moveContent = 1
+    },
+
+    changeView() {
+      // 내용 2*2 or 일자로 보이게 만드는 함수
     }
 
   },
@@ -232,7 +234,7 @@ export default {
   margin-top: 2%;
 }
 .TopBoxLeft {
-  width: 50%;
+  width: 85%;
   margin-top: 1%;
 }
 .TopBoxLeft a{
@@ -241,18 +243,31 @@ export default {
   padding-left: 5%;
 }
 
+.TopBoxRight {
+  width: 15%;
+
+}
+
+.TopBoxRight img {
+  margin-top: 7%;
+  padding-left: 5%;
+  margin-left: 2%;
+  width: 21%;
+  opacity: 0.7;
+}
+
 /* mainBanner css */
 
 .mainBox {
-  width: 70%;
-  height: 340px;
+  width: 85%;
+  height: 450px;
   border-bottom: 1px solid #d5d6dc;
-  margin-left: 17%;
+  margin-left: 8%;
   margin-top: 1%;
 }
 .mainBox img {
   width: 100%;
-  height: 300px;
+  height: 400px;
 }
 
 /* middle css */
@@ -267,7 +282,7 @@ export default {
 
 .left {
   width: 15%;
-  height: 700px;
+  height: 750px;
   background: #e9ecf1;
 }
 .leftTitle {
@@ -325,6 +340,18 @@ export default {
   flex-wrap: wrap;
 }
 
+.choiceContentView {
+  display: flex;;
+}
+
+.choiceView {
+  margin-top: 3%;
+  margin-left: 80%;
+}
+.choiceView img{
+  width: 15%;
+}
+
 .movePageMargin {
   margin-top: 2%;
 }
@@ -338,7 +365,8 @@ export default {
 }
 /* 가로로 2개씩 보이기 위해 만든 div박스 */
 .contentBox {
-  width: 50%;
+  width: 45%;
+  margin-right: 2%;
 }
 
 .contentImg {

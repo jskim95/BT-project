@@ -33,6 +33,7 @@ const state = {
           var published = $('#content > div:nth-child(2) > article > div > p > time.published').text()
           var updated = $('#content > div:nth-child(2) > article > div > p > time.updated').text()
           var content = $('#content > div:nth-child(2) > article > div > div.entry.themeform > div.entry-inner > p').text()
+          var contentImg = $('#content > div:nth-child(2) > article > div > div.image-container > img').attr("src")
 
           // 날짜별로 게시글을 표현하기위해서 날짜 숫자만 출력
           var checkYear = "";
@@ -50,7 +51,7 @@ const state = {
           }
 
 
-          state.newsRoomData.push([checkYear, checkMonth, checkDay, title, published, updated, content])
+          state.newsRoomData.push([checkYear, checkMonth, checkDay, title, published, updated, content, contentImg])
 
           if(state.newsRoomData.length == newsRoomPage.length) {
             state.newsRoomData.sort()

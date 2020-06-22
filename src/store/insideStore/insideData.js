@@ -35,11 +35,12 @@ const state = {
           // published == 게시글 작성 날짜
           // updated == 게시글 업데이트 날짜
           // content == 게시글 내용
+          // contentImg == 게시글 사진
           var title = $('#content > div:nth-child(2) > article > div > h1').text()
           var published = $('#content > div:nth-child(2) > article > div > p > time.published').text()
           var updated = $('#content > div:nth-child(2) > article > div > p > time.updated').text()
           var content = $('#content > div:nth-child(2) > article > div > div.entry.themeform > div.entry-inner > p').text()
-          // var contentImg = $('#content > div:nth-child(2) > article > div > div.image-container > img').getAttribute('src')
+          var contentImg = $('#content > div:nth-child(2) > article > div > div.image-container > img').attr("src")
 
           // 날짜별로 게시글을 표현하기위해서 날짜 숫자만 출력
           var checkYear = "";
@@ -56,7 +57,7 @@ const state = {
           }
 
 
-          state.insideData.push([checkYear, checkMonth, checkDay, title, published, updated, content])
+          state.insideData.push([checkYear, checkMonth, checkDay, title, published, updated, content, contentImg])
 
           // axios.get 요청 끝났을때 상황
           if(state.insideData.length == insidePage.length) {
