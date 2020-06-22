@@ -49,7 +49,7 @@ const state = {
           }
 
 
-          state.trendData.push([checkYear, checkMonth, checkDay, title, published, updated, content, contentImg])
+          state.trendData.push([checkYear, checkMonth, checkDay, title, published, updated, content, contentImg, 'TREND'])
 
           if(state.trendData.length ==trendPage.length) {
             state.trendData.sort()

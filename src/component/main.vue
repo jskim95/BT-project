@@ -17,8 +17,8 @@
       </div>
     </div>
 
-    <div class="mainBox">
-      <img src='../assets/mainBanner1.png'>
+    <div class="mainBox" v-on:click="moveCategoryPage">
+      <router-link to="trend"><img src='../assets/mainBanner1.png'></router-link>
     </div>
 
     <div class="middle">
@@ -68,7 +68,7 @@
               <router-link class="movePage" to="inside" ><img :src="recentInsideData[7]" class="contentImg" v-on:click="moveCategoryPage"></router-link>
               <p class="gray"><span class="blue">INSIDE</span> {{recentInsideData[4]}}</p>
               <p class="contentTitle">{{recentInsideData[3]}}</p>
-              <p>{{recentInsideData[6]}}...</p>
+              <p class="content">{{recentInsideData[6]}}...</p>
             </div>
           </div>
 
@@ -80,7 +80,7 @@
               <router-link class="movePage" to="newsRoom" ><img :src="recentNewsRoomData[7]" class="contentImg" v-on:click="moveCategoryPage"></router-link>
               <p class="gray"><span class="blue">NEWSROOM</span>  {{recentNewsRoomData[4]}}</p>
               <p class="contentTitle">{{recentNewsRoomData[3]}}</p>
-              <p>{{recentNewsRoomData[6]}}...</p>
+              <p class="content">{{recentNewsRoomData[6]}}...</p>
             </div>
           </div>
 
@@ -94,7 +94,7 @@
               <router-link class="movePage" to="trend" ><img :src="listTrendData[7]" class="contentImg" v-on:click="moveCategoryPage"></router-link>
               <p class="gray"><span class="blue">TREND</span>  {{listTrendData[4]}}</p>
               <p class="contentTitle">{{listTrendData[3]}}</p>
-              <p>{{listTrendData[6]}}...</p>
+              <p class="content">{{listTrendData[6]}}...</p>
             </div>
 
           </div>
@@ -151,7 +151,7 @@ export default {
   data() {
     return {
       test : "../assets/mainBanner1.png",
-      moveCategory : 0,
+      moveCategory : 1,
       moveContent : 0,
     }
   },
@@ -376,6 +376,10 @@ export default {
   font-size: 21px;
   font-weight: bold;
 }
+.content {
+  color: #aaa;
+  font-size: 14px;
+}
 
 .gray {
   color: #d5d6dc;
@@ -384,6 +388,9 @@ export default {
 .blue {
   color: #0076e5;
   font-size: 14px;
+}
+img:hover {
+  opacity: 0.8
 }
 /* p { margin: 0px 0px 0px 0px; line-height: 120%; } */
 </style>

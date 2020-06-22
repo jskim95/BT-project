@@ -51,10 +51,10 @@ const state = {
           }
 
 
-          state.newsRoomData.push([checkYear, checkMonth, checkDay, title, published, updated, content, contentImg])
+          state.newsRoomData.push([checkYear, checkMonth, checkDay, title, published, updated, content, contentImg, 'NEWSROOM'])
 
           if(state.newsRoomData.length == newsRoomPage.length) {
-            state.newsRoomData.sort()
+            state.newsRoomData.sort().reverse()
             console.log(state.newsRoomData)
 
             state.listNewsRoomData = JSON.parse(JSON.stringify(state.newsRoomData))
@@ -63,8 +63,8 @@ const state = {
             }
             console.log(state.listNewsRoomData)
 
-            state.recentNewsRoomData = state.listNewsRoomData.slice(state.listNewsRoomData.length-2,state.listNewsRoomData.length)
-            state.recentNewsRoomData.reverse()
+            state.recentNewsRoomData = state.listNewsRoomData.slice(0,2)
+            state.recentNewsRoomData
             console.log(state.recentNewsRoomData)
           }
 

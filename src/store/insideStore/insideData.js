@@ -57,13 +57,13 @@ const state = {
           }
 
 
-          state.insideData.push([checkYear, checkMonth, checkDay, title, published, updated, content, contentImg])
+          state.insideData.push([checkYear, checkMonth, checkDay, title, published, updated, content, contentImg, 'INSIDE'])
 
           // axios.get 요청 끝났을때 상황
           if(state.insideData.length == insidePage.length) {
 
             // inside데이터 최신순으로 바꾸는 과정
-            state.insideData.sort()
+            state.insideData.sort().reverse()
             console.log(state.insideData)
 
             // inside데이터 내용 부분 120글자 넘어가면 substr으로 자르기 - 게시물 리스트 페이지에서 사용할거
@@ -74,8 +74,8 @@ const state = {
             console.log(state.listInsideData)
 
             // 120글자로 자른 데이터를 2개만 출력하는 부분 - 메인페이지에 최신글 2개만 출력하려고
-            state.recentInsideData = state.listInsideData.slice(state.listInsideData.length-2,state.listInsideData.length)
-            state.recentInsideData.reverse()
+            state.recentInsideData = state.listInsideData.slice(0,2)
+            state.recentInsideData
             console.log(state.recentInsideData)
           }
 

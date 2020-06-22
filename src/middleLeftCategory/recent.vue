@@ -50,23 +50,8 @@ export default {
   },
 
   methods: {
-    ...newsRoom.mapActions([
-      'getNewsRoom'
-    ]),
-
-    ...trend.mapActions([
-      'getTrend'
-    ]),
-
-    ...inside.mapActions([
-      'getInside'
-    ]),
-
   },
   mounted() {
-    // this.getNewsRoom()
-    // this.getTrend()
-    // this.getInside()
   }
 }
 </script>
@@ -78,13 +63,9 @@ export default {
   font-size: 16px;
 }
 
-/* .gray {
-  color: #d5d6dc;
-  font-size: 13px;
-} */
 .recentData {
   margin-top: 10%;
-  padding-bottom: 5%;
+  padding-bottom: 8%;
   border-bottom: 1px solid #d5d6dc;
 }
 .blue {
