@@ -14,7 +14,7 @@
     <div class="" v-if="moveContentPage == 1">
       <board-content v-bind:num="num" v-bind:category="category"></board-content>
     </div>
-    
+
   </div>
 </template>
 
@@ -66,6 +66,8 @@ export default {
   font-size: 19px;
   color: #666;
   font-weight: bold;
+  border-bottom: 1px solid #d5d6dc;
+  padding-bottom: 2%;
 }
 
 .mainContent {

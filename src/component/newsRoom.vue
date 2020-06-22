@@ -47,8 +47,6 @@ export default {
 
   methods: {
     getContent(category, index) {
-      console.log(index)
-      console.log(category)
       this.num = index
       this.category = category
       this.moveContentPage = 1
@@ -67,6 +65,8 @@ export default {
   font-size: 19px;
   color: #666;
   font-weight: bold;
+  border-bottom: 1px solid #d5d6dc;
+  padding-bottom: 2%;
 }
 
 .mainContent {

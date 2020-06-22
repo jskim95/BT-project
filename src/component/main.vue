@@ -126,10 +126,10 @@ import $ from 'jquery'
         $(".left").css("position", "fixed");
         $(".left").css("top", "0");
         $(".left").css("left", "0");
-        $(".center").css("margin-left", "17%")
+        $(".center").css("margin-left", "19%")
       } else {
         $(".left").css("position", "relative");
-        $(".center").css("margin-left", "2%")
+        $(".center").css("margin-left", "3%")
       }
     })
   })
@@ -261,7 +261,6 @@ export default {
 .mainBox {
   width: 85%;
   height: 450px;
-  border-bottom: 1px solid #d5d6dc;
   margin-left: 8%;
   margin-top: 1%;
 }
@@ -284,6 +283,7 @@ export default {
   width: 15%;
   height: 750px;
   background: #e9ecf1;
+  margin-left: 1%;
 }
 .leftTitle {
   width: 100%;
@@ -328,12 +328,13 @@ export default {
   width: 70%;
   min-height: 1000px;
   margin-left: 2%;
+  /* border-top: 1px solid #d5d6dc; */
 }
 
 /* 메인페이지 최신글 2개 */
 .mainContent {
   width: 100%;
-  border-bottom: 1px solid #d5d6dc;
+
   margin-top: 2%;
   padding-bottom: 2%;
   display: flex;
@@ -366,7 +367,8 @@ export default {
 /* 가로로 2개씩 보이기 위해 만든 div박스 */
 .contentBox {
   width: 45%;
-  margin-right: 2%;
+  margin-right: 5%;
+  border-bottom: 1px solid #d5d6dc;
 }
 
 .contentImg {

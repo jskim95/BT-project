@@ -1,20 +1,26 @@
 <template>
   <div class="">
-    {{num}}
-    {{category}}
+
     <div class="" v-if="category == 'INSIDE'">
-      <img :src="insideData[num][7]">
-      {{insideData[num]}}
+      <p class="title">{{insideData[num][3]}}</p>
+      <p class="day">PUBLISHED {{insideData[num][4]}} · UPDATED {{insideData[num][4]}}</p>
+      <img class="pic" :src="insideData[num][7]">
+      <p class="content">{{insideData[num][6]}}</p>
     </div>
 
     <div class="" v-if="category == 'NEWSROOM'">
-      <img :src="newsRoomData[num][7]">
-      {{newsRoomData[num]}}
+      <p class="title">{{newsRoomData[num][3]}}</p>
+      <p class="day">PUBLISHED {{newsRoomData[num][4]}} · UPDATED {{newsRoomData[num][4]}}</p>
+      <img class="pic" :src="newsRoomData[num][7]">
+      <p class="content">{{newsRoomData[num][6]}}</p>
     </div>
 
-    <!-- <div class="" v-if="category == 'INSIDE'">
-      {{insideData[num]}}
-    </div> -->
+    <div class="" v-if="category == 'TREND'">
+      <p class="title">{{trendData[num][3]}}</p>
+      <p class="day">PUBLISHED {{trendData[num][4]}} · UPDATED {{trendData[num][4]}}</p>
+      <img class="pic" :src="trendData[num][7]">
+      <p class="content">{{trendData[num][6]}}</p>
+    </div>
 
   </div>
 </template>
@@ -62,5 +68,19 @@ export default {
 </script>
 
 <style scoped>
-
+.title {
+  font-size: 30px;
+}
+.day {
+  color: #aaa;
+  font-size: 13px;
+}
+.pic {
+  width: 70%;
+  margin-left: 15%;
+}
+.content {
+  margin-top: 3%;
+  font-size: 14px;
+}
 </style>
