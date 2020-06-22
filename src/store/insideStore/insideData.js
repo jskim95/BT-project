@@ -39,12 +39,12 @@ const state = {
           var published = $('#content > div:nth-child(2) > article > div > p > time.published').text()
           var updated = $('#content > div:nth-child(2) > article > div > p > time.updated').text()
           var content = $('#content > div:nth-child(2) > article > div > div.entry.themeform > div.entry-inner > p').text()
+          // var contentImg = $('#content > div:nth-child(2) > article > div > div.image-container > img').getAttribute('src')
 
           // 날짜별로 게시글을 표현하기위해서 날짜 숫자만 출력
           var checkYear = "";
           var checkMonth = "";
           var checkDay = "";
-
           for(var j=0; j<published.length; j++) {
             if(published[j]>=0 && j<4) {
               checkYear += published[j]
@@ -58,16 +58,21 @@ const state = {
 
           state.insideData.push([checkYear, checkMonth, checkDay, title, published, updated, content])
 
+          // axios.get 요청 끝났을때 상황
           if(state.insideData.length == insidePage.length) {
+
+            // inside데이터 최신순으로 바꾸는 과정
             state.insideData.sort()
             console.log(state.insideData)
 
+            // inside데이터 내용 부분 120글자 넘어가면 substr으로 자르기 - 게시물 리스트 페이지에서 사용할거
             state.listInsideData = JSON.parse(JSON.stringify(state.insideData))
             for(var k=0; k<state.insideData.length; k++) {
               state.listInsideData[k][6] = state.insideData[k][6].substr(0, 120)
             }
             console.log(state.listInsideData)
 
+            // 120글자로 자른 데이터를 2개만 출력하는 부분 - 메인페이지에 최신글 2개만 출력하려고
             state.recentInsideData = state.listInsideData.slice(state.listInsideData.length-2,state.listInsideData.length)
             state.recentInsideData.reverse()
             console.log(state.recentInsideData)

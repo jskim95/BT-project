@@ -2,9 +2,9 @@
   <div id="ALL">
 
     <div class="TopBox">
-      <router-link to="/"><img class="mainLogo" src="../assets/mainLogo.png"></router-link>
+      <router-link to="/"><img class="mainLogo"  v-on:click="moveHome" src="../assets/mainLogo.png"></router-link>
 
-      <div class="TopBoxLeft">
+      <div class="TopBoxLeft" v-on:click="moveCategoryPage">
         <router-link to="inside">INSIDE</router-link>
         <router-link to="newsRoom">NEWSROOM</router-link>
         <router-link to="trend">TREND</router-link>
@@ -18,6 +18,16 @@
     <div class="mainBox">
       <img src='../assets/mainBanner1.png'>
     </div>
+    <!-- {{allData[0][3]}}<br>
+    {{allData[1][3]}}<br>
+    {{allData[2][3]}}<br>
+    {{allData[3][3]}}<br>
+    {{allData[4][3]}}<br>
+    {{allData[5][3]}}<br>
+    {{allData[6][3]}}<br>
+    {{allData[7][3]}}<br>
+    {{allData[8][3]}}<br>
+    {{allData[9][3]}}<br> -->
 
 
     <div class="middle">
@@ -49,44 +59,50 @@
       </div>
 
       <div class="center">
-        <div class="mainPageContent">
+        <div class="mainPageContent" v-if="moveContent == 0">
 
-          <router-link class="movePage" to="inside" >INSIDE</router-link>
+          <div class="movePageMargin">
+            <router-link class="movePage" to="inside" >INSIDE</router-link>
+          </div>
           <div class="mainContent inside">
-
             <div class="contentBox" v-for="(recentInsideData, index) in recentInsideData">
+              <img :src="contentImg[index]" class="contentImg">
               <p class="gray"><span class="blue">INSIDE</span> {{recentInsideData[4]}}</p>
               <p class="contentTitle">{{recentInsideData[3]}}</p>
-              <p>{{recentInsideData[6]}}</p>
+              <p>{{recentInsideData[6]}}...</p>
             </div>
-
           </div>
 
-          <router-link class="movePage" to="newsRoom">NEWSROOM</router-link>
+          <div class="movePageMargin">
+            <router-link class="movePage" to="newsRoom">NEWSROOM</router-link>
+          </div>
           <div class="mainContent newsRoom">
-
             <div class="contentBox" v-for="(recentNewsRoomData, index) in recentNewsRoomData">
+              <img :src="contentImg[index]" class="contentImg">
               <p class="gray"><span class="blue">NEWSROOM</span>  {{recentNewsRoomData[4]}}</p>
               <p class="contentTitle">{{recentNewsRoomData[3]}}</p>
-              <p>{{recentNewsRoomData[6]}}</p>
+              <p>{{recentNewsRoomData[6]}}...</p>
             </div>
-
           </div>
 
-          <router-link class="movePage" to="trend">TREND</router-link>
+          <div class="movePageMargin">
+            <router-link class="movePage" to="trend">TREND</router-link>
+          </div>
+
           <div class="mainContent trend">
 
             <div class="contentBox" v-for="(listTrendData, index) in listTrendData">
+              <img :src="contentImg[index]" class="contentImg">
               <p class="gray"><span class="blue">TREND</span>  {{listTrendData[4]}}</p>
               <p class="contentTitle">{{listTrendData[3]}}</p>
-              <p>{{listTrendData[6]}}</p>
+              <p>{{listTrendData[6]}}...</p>
             </div>
 
           </div>
         </div>
 
 
-        <div class="movePageContent">
+        <div class="movePageContent" v-if="moveContent == 1">
           <router-view></router-view>
         </div>
 
@@ -137,22 +153,30 @@ export default {
     return {
       test : "../assets/mainBanner1.png",
       moveCategory : 0,
+      moveContent : 0,
+      contentImg : ["http://blog.sinsiway.com/newuploads/2020/06/1-1.png"]
     }
   },
 
   computed:{
     ...newsRoom.mapState([
-      'newsRoomData',
       'recentNewsRoomData',
     ]),
     ...trend.mapState([
-      'trendData',
       'listTrendData'
     ]),
     ...inside.mapState([
-      'insideData',
       'recentInsideData',
     ]),
+    allData() {
+      const {
+        inside: {recentInsideData},
+        newsRoom: {recentNewsRoomData},
+        trend: {listTrendData},
+      } = this.$store.state
+      // , ...recentNewsRoomData,
+      return {...recentInsideData, ...listTrendData}
+    },
   },
 
   methods: {
@@ -175,6 +199,14 @@ export default {
     movePopular() {
       this.moveCategory = 2
     },
+
+    moveHome() {
+      this.moveContent = 0
+    },
+
+    moveCategoryPage() {
+      this.moveContent = 1
+    }
 
   },
   mounted() {
@@ -283,6 +315,7 @@ export default {
   margin-left: 2%;
 }
 
+/* 메인페이지 최신글 2개 */
 .mainContent {
   width: 100%;
   border-bottom: 1px solid #d5d6dc;
@@ -292,17 +325,25 @@ export default {
   flex-wrap: wrap;
 }
 
+.movePageMargin {
+  margin-top: 2%;
+}
+
+/* 최신글 제목 */
 .movePage {
   color: black;
   font-size: 24px;
   font-weight: bold;
   text-decoration: none;
 }
-
+/* 가로로 2개씩 보이기 위해 만든 div박스 */
 .contentBox {
   width: 50%;
 }
 
+.contentImg {
+  width : 100%;
+}
 .contentTitle {
   font-size: 21px;
   font-weight: bold;
