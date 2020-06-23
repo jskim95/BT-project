@@ -5,6 +5,8 @@ import inside from './component/inside'
 import trend from './component/trend'
 import newsRoom from './component/newsRoom'
 
+import todo from './component/todo'
+
 
 Vue.use(Router)
 
@@ -30,6 +32,10 @@ export default new Router({
         },
       ] // children 태그 끝
     }, // 부모 태그 끝
-    
+    {
+      path:'/todo',
+      component:todo
+    }
+
   ] // routes 끝
 })

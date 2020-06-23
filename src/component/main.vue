@@ -18,7 +18,7 @@
     </div>
 
     <div class="mainBox" v-on:click="moveCategoryPage">
-      <router-link to="trend"><img src='../assets/mainBanner1.png'></router-link>
+      <router-link to="newsRoom"><img src='../assets/mainBanner.png'></router-link>
     </div>
 
     <div class="middle">
@@ -105,6 +105,10 @@
           <router-view></router-view>
         </div>
 
+      </div>
+
+      <div class="rightMenu">
+        <router-link to="todo"><img class="rightMenuIcon" src="../assets/list.png"></router-link>
       </div>
 
 
@@ -259,14 +263,14 @@ export default {
 /* mainBanner css */
 
 .mainBox {
-  width: 85%;
+  width: 90%;
   height: 450px;
-  margin-left: 8%;
+  margin-left: 5%;
   margin-top: 1%;
 }
 .mainBox img {
   width: 100%;
-  height: 400px;
+  height: 440px;
 }
 
 /* middle css */
@@ -382,6 +386,20 @@ export default {
   color: #aaa;
   font-size: 14px;
 }
+
+/* rightMenu css  */
+.rightMenu {
+  width: 10%;
+}
+.rightMenuIcon {
+
+  position: fixed;
+  width: 5%;
+  margin-top: 7%;
+  margin-left: 5%;
+}
+
+/* 자잘한 css */
 
 .gray {
   color: #d5d6dc;
