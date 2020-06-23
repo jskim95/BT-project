@@ -1,7 +1,7 @@
 # bt-project
 
-> A Vue.js project
-
+> A Vue.js project  
+"C:\Program Files (x86)\Google\Chrome\Application\chrome.exe" --disable-web-security --user-data-dir="C:\chrome" 
 ## Build Setup
 
 ``` bash
