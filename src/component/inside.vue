@@ -41,6 +41,7 @@ export default {
       category : '',
       num : 0,
       moveContentPage:0
+
     }
   },
 

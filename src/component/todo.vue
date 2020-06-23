@@ -35,7 +35,6 @@
         <p class="leftContent big">- ToDo List -</p> <br>
 
         <div class="leftContentBox" v-for="(todoList, index) in todoList">
-
           <!-- <div class="moveContent">
             <div class="">
               <span v-on:click="upTodo">▲</span>
@@ -46,21 +45,22 @@
           </div> -->
 
           <span class="leftContent">
-            - {{todoList}}
+            - {{todoList[0]}}
           </span>
 
           <div class="editContent">
-            <img class="updateContent" v-on:click="showWriteBox(index)"  src="../assets/edit.png">
+            <img class="updateContent" v-on:click="showWriteBox(index)" src="../assets/edit.png">
             <i class="checkBtn fas fa-check" v-on:click="check(index)"></i>
             <i class="far fa-trash-alt" v-on:click="deleteTodo(index)"></i>
           </div>
 
-          <div class="" v-if="updateCheck == true">
+          <div class="updateBox" v-if=" todoList[1] == true">
             <input type="text" v-model="updateContent" v-on:keyup.enter="updateTodo(index)" />
-            <span v-on:click="updateTodo(index)">수정</span>
+            <span class="updateButton" v-on:click="updateTodo(index)">
+              <i class="addBtn fas">수정</i>
+            </span>
           </div>
         </div>
-
       </div>
     </div>
 
@@ -117,24 +117,26 @@ export default {
 
   data() {
     return {
+      //
       todo : '',
-      todoList : [],
+      todoList : [], // 미완료 todo
       updateContent : '',
-      updateCheck : false,
-      checkTodo : [],
-
-      moveCategory: 0,
+      checkTodo : [], // 완료 todo
+      prevIndex : -1, // 해당 todo update input창 만들기위한 변수
+      moveCategory: 0, // 전체, 미완료, 완료 이동 버튼
 
       // 시간 변수
       time : '',
       todayMonth : '',
       todayDay : '',
       todayDate : '',
+
     }
   },
   methods: {
     addTodo() {
-      this.todoList.push(this.todo)
+      this.nowTime()
+      this.todoList.push([this.todo, false, this.time]);
       this.resetTodo()
     },
 
@@ -178,12 +180,22 @@ export default {
     },
 
     showWriteBox(i) {
-      this.updateCheck = true
+      // 이전에 수정 버튼 누른것을 false로 바꾸주면서 input창 제거
+      if (this.prevIndex !== -1) {
+        this.todoList[this.prevIndex][1] = false;
+      }
+
+      // 현재 수정 버튼 누른곳은 true로 바꿔서 input창 생성
+      this.todoList[i][1] = true;
+      this.todoList = JSON.parse(JSON.stringify(this.todoList))
+      this.prevIndex = i;
     },
 
     updateTodo(i) {
-      console.log(i)
-      this.todoList[i] = this.updateContent
+      this.todoList[i][0] = this.updateContent
+      this.updateContent = ''
+      this.todoList = JSON.parse(JSON.stringify(this.todoList))
+      this.todoList[i][1] = false;
     },
 
     allCategory() {
@@ -257,19 +269,17 @@ export default {
 .mainWriteBox {
   margin-top: 3%;
   margin-left: 25%;
+  background: white;
+  width: 50%;
+  height: 53px;
+  border-radius: 15px;
+  line-height: 53px;
 }
 .mainWriteBox input {
   outline: none;
   border-style: hidden;
   width: 85%;
   height: 50px;
-}
-.mainWriteBox {
-  background: white;
-  width: 50%;
-  height: 53px;
-  border-radius: 15px;
-  line-height: 53px;
 }
 .addButton {
   float: right;
@@ -292,7 +302,8 @@ export default {
   margin-top: 30%;
   width: 60%;
   min-height: 800px;
-  background-color: rgba(255, 255, 255, 0.3)
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
 }
 /* 왼쪽 리스트 위치잡아주는 css */
 .leftTodoBox {
@@ -302,8 +313,7 @@ export default {
 }
 /* todo 리스트 반복문 박스 css */
 .leftContentBox {
-  background: white;
-  opacity: 0.7;
+  background-color: rgba(255, 255, 255, 0.7);
   padding: 3px 3px 3px 3px;
   margin-bottom: 1%;
   border-radius: 10px;
@@ -315,12 +325,16 @@ export default {
   display: flex;
   flex-direction: column;
 }
+/* todo 리스트 내용 css */
 .leftContent {
   width: 90%;
   font-size: 19px;
   margin: 10px;
 }
 
+
+
+/* 수정 삭제 완료 아이콘 css */
 .editContent {
   margin-top: 1%;
   width: 10%;
@@ -339,6 +353,37 @@ export default {
   cursor: pointer;
 }
 
+/* 수정 input 창 css */
+
+.updateBox {
+  margin-left: 5%;
+  background: white;
+  width: 50%;
+  height: 33px;
+  border-radius: 15px;
+  line-height: 33px;
+}
+.updateBox input {
+  outline: none;
+  border-style: hidden;
+  /* width: 85%; */
+  height: 30px;
+}
+
+.updateButton {
+  float: right;
+  background: linear-gradient(to right, #6478FB, #8763FB);
+  width: 3rem;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+}
+.addBtn {
+  color: white;
+  vertical-align: middle;
+  text-align: center;
+  padding-left: 15%;
+  cursor: pointer;
+}
 
 /* 오른쪽 할일 리스트 css */
 .rightTodoList{
@@ -351,7 +396,8 @@ export default {
   background-color: rgba(255, 255, 255, 0.3);
   overflow-x:hidden;
   overflow-y:scroll;
-  padding: 20px
+  padding: 20px;
+  border-radius: 20px;
 }
 
 .categoryBox {
@@ -376,12 +422,6 @@ export default {
 .rightContentBox{
   margin-top: 5%;
 }
-
-
-
-
-
-
 
 .big {
   margin-top: 2%;
