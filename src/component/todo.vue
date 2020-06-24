@@ -33,7 +33,9 @@
       <div class="leftTodoBox">
 
         <p class="leftContent big">- ToDo List -</p> <br>
-
+        <span class="removeCheckTodo" v-on:click="removeCheckTodo">
+          <i class="removeBtn fas">완료 초기화</i>
+        </span>
         <div class="leftContentBox" v-for="(todoList, index) in todoList">
           <!-- <div class="moveContent">
             <div class="">
@@ -196,6 +198,10 @@ export default {
       this.updateContent = ''
       this.todoList = JSON.parse(JSON.stringify(this.todoList))
       this.todoList[i][1] = false;
+    },
+
+    removeCheckTodo() {
+      this.checkTodo = [];
     },
 
     allCategory() {
@@ -426,5 +432,23 @@ export default {
 .big {
   margin-top: 2%;
   font-size: 24px;
+}
+
+.removeCheckTodo {
+  float: right;
+  background: linear-gradient(to right, #6478FB, #8763FB);
+  width: 12%;
+  height: 50px;
+  border-radius: 10px;
+  cursor: pointer;
+  text-align: center;
+  padding-top: 1.3%;
+  margin-bottom: 2%;
+}
+.removeBtn {
+  color: white;
+  vertical-align: middle;
+  cursor: pointer;
+  margin-top: 3%;
 }
 </style>
