@@ -29,7 +29,7 @@
 
         <div class="leftCategory">
           <div class="detailCategory" v-on:click="moveCategory(index)" v-for="(calCategoryPathImg, index) in calCategoryPathImg">
-            <a href="#"><img :src="calCategoryPathImg[0]"></a>
+            <a><img :src="calCategoryPathImg[0]"></a>
           </div>
         </div>
 
@@ -46,15 +46,15 @@
 
       <div class="center">
         <div class="mainPageContent" v-if="moveContent == 0">
-
           <!-- 게시글 앨범형 카드형 선택 -->
           <div class="choiceContentView">
             <div class="movePageMargin" v-on:click="moveCategoryPage">
               <router-link class="movePage" to="inside" >INSIDE</router-link>
             </div>
+            <!-- 게시글 모양 변화 -->
             <div class="choiceView">
-              <img src='../assets/card.png'>
-              <img src='../assets/card.png'>
+              <img v-on:click="chageCard" src='../assets/card.png'>
+              <img v-on:click="changeAlbum"class="rotate" src='../assets/card.png'>
             </div>
           </div>
 
@@ -146,8 +146,7 @@ export default {
       // 최신글 인기글 관련 변수
       moveCategoryNum : 0,
       calCategoryPathImg : [[require('../assets/clock.png'), false], [require('../assets/star.png'), false]],
-      // bottom css 주기 위한 변수
-      preNum : -1,
+      preNum : -1, // bottom css 주기 위한 변수
 
       moveContent : 0,
 
@@ -164,15 +163,6 @@ export default {
     ...inside.mapState([
       'recentInsideData',
     ]),
-    // allData() {
-    //   const {
-    //     inside: {recentInsideData},
-    //     newsRoom: {recentNewsRoomData},
-    //     trend: {listTrendData},
-    //   } = this.$store.state
-    //   // , ...recentNewsRoomData,
-    //   return {...recentInsideData, ...listTrendData}
-    // },
   },
 
   methods: {
@@ -188,6 +178,7 @@ export default {
       'getInside'
     ]),
 
+    // 왼쪽 메뉴 컴포넌트 이동과 css 효과(추가, 삭제)
     moveCategory(i) {
       // 컴포넌트 이동
       this.moveCategoryNum = i
@@ -201,6 +192,22 @@ export default {
       this.preNum = i;
     },
 
+    chageCard() {
+      var element = document.getElementsByClassName('contentBox')
+      console.log(element)
+      for(var i=0; i<element.length; i++) {
+        element[i].classList.add('bigContentBox')
+      }
+    },
+
+    changeAlbum() {
+      var element = document.getElementsByClassName('contentBox')
+      console.log(element)
+      for(var i=0; i<element.length; i++) {
+        element[i].classList.remove('bigContentBox')
+      }
+    },
+
     moveHome() {
       this.moveContent = 0
     },
@@ -208,11 +215,6 @@ export default {
     moveCategoryPage() {
       this.moveContent = 1
     },
-
-    changeView() {
-      // 내용 2*2 or 일자로 보이게 만드는 함수
-    }
-
   },
   mounted() {
     this.getNewsRoom()
@@ -248,7 +250,6 @@ export default {
 
 .TopBoxRight {
   width: 15%;
-
 }
 
 .TopBoxRight img {
@@ -344,7 +345,6 @@ export default {
 /* 메인페이지 최신글 2개 */
 .mainContent {
   width: 100%;
-
   margin-top: 2%;
   padding-bottom: 2%;
   display: flex;
@@ -380,6 +380,10 @@ export default {
   margin-right: 5%;
   border-bottom: 1px solid #d5d6dc;
 }
+/* 가로로 1개씩 보이기 위해 변화시킬 css */
+.bigContentBox {
+  width: 80%;
+}
 
 .contentImg {
   width : 100%;
@@ -398,7 +402,6 @@ export default {
   width: 10%;
 }
 .rightMenuIcon {
-
   position: fixed;
   width: 5%;
   margin-top: 7%;
@@ -416,7 +419,13 @@ export default {
   font-size: 14px;
 }
 img:hover {
-  opacity: 0.8
+  opacity: 0.8;
+  cursor: pointer;
+}
+.rotate {
+  transform: rotate( 90deg );
+  margin-left: 2%;
+  cursor: pointer;
 }
 /* p { margin: 0px 0px 0px 0px; line-height: 120%; } */
 </style>
