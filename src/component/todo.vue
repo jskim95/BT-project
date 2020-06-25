@@ -442,7 +442,7 @@ export default {
   border-radius: 10px;
   cursor: pointer;
   text-align: center;
-  padding-top: 1.3%;
+  padding-top: 1.5%;
   margin-bottom: 2%;
 }
 .removeBtn {

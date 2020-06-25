@@ -22,27 +22,22 @@
     </div>
 
     <div class="middle">
-
       <div class="left">
-
         <div class="leftTitle">
           <p>SINSIWAY LINK</p>
         </div>
 
         <div class="leftCategory">
-          <div class="detailCategory" v-on:click="moveRecent">
-            <a href="#"><img src='../assets/clock.png'></a>
-          </div>
-          <div class="detailCategory" v-on:click="movePopular">
-            <a href="#"><img src='../assets/star.png'></a>
+          <div class="detailCategory" v-on:click="moveCategory(index)" v-for="(calCategoryPathImg, index) in calCategoryPathImg">
+            <a href="#"><img :src="calCategoryPathImg[0]"></a>
           </div>
         </div>
 
         <div class="categoryContent">
-          <div class="" v-if="moveCategory == 1">
+          <div class="" v-if="moveCategoryNum == 0">
             <recent></recent>
           </div>
-          <div class="" v-if="moveCategory == 2">
+          <div class="" v-if="moveCategoryNum == 1">
             <popular></popular>
           </div>
         </div>
@@ -75,6 +70,7 @@
           <div class="movePageMargin" v-on:click="moveCategoryPage">
             <router-link class="movePage" to="newsRoom">NEWSROOM</router-link>
           </div>
+
           <div class="mainContent newsRoom">
             <div class="contentBox" v-for="(recentNewsRoomData, index) in recentNewsRoomData">
               <router-link class="movePage" to="newsRoom" ><img :src="recentNewsRoomData[7]" class="contentImg" v-on:click="moveCategoryPage"></router-link>
@@ -89,14 +85,12 @@
           </div>
 
           <div class="mainContent trend">
-
             <div class="contentBox" v-for="(listTrendData, index) in listTrendData">
               <router-link class="movePage" to="trend" ><img :src="listTrendData[7]" class="contentImg" v-on:click="moveCategoryPage"></router-link>
               <p class="gray"><span class="blue">TREND</span>  {{listTrendData[4]}}</p>
               <p class="contentTitle">{{listTrendData[3]}}</p>
               <p class="content">{{listTrendData[6]}}...</p>
             </div>
-
           </div>
         </div>
 
@@ -113,12 +107,7 @@
 
 
     </div>
-
-
-
-
   </div>
-
 </template>
 
 <script>
@@ -154,9 +143,14 @@ export default {
 
   data() {
     return {
-      test : "../assets/mainBanner1.png",
-      moveCategory : 1,
+      // 최신글 인기글 관련 변수
+      moveCategoryNum : 0,
+      calCategoryPathImg : [[require('../assets/clock.png'), false], [require('../assets/star.png'), false]],
+      // bottom css 주기 위한 변수
+      preNum : -1,
+
       moveContent : 0,
+
     }
   },
 
@@ -194,12 +188,17 @@ export default {
       'getInside'
     ]),
 
-    moveRecent() {
-      this.moveCategory = 1
-    },
+    moveCategory(i) {
+      // 컴포넌트 이동
+      this.moveCategoryNum = i
 
-    movePopular() {
-      this.moveCategory = 2
+      var element = document.getElementsByClassName('detailCategory')
+      if(this.preNum !== -1) {
+        this.calCategoryPathImg[this.preNum][1] = false
+        element[this.preNum].classList.remove('click')
+      }
+      element[i].classList.add('click')
+      this.preNum = i;
     },
 
     moveHome() {
@@ -317,6 +316,13 @@ export default {
   margin-left: 4%;
   width: 45%;
   border-bottom: 3px solid #d5d6dc;
+}
+
+.click {
+  padding-bottom: 5%;
+  margin-left: 4%;
+  width: 45%;
+  border-bottom: 3px solid #0076e5;
 }
 
 .categoryContent {
